@@ -1,0 +1,66 @@
+/* Creates fixed full-screen background image
+html {
+  background: url(/assets/portland_night.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+*/
+
+/* Color Palette 
+http://paletton.com/#uid=54Q0u0kkZm3kZm36OziDFb6DYbg
+*/
+
+body {
+  background: #672A74;
+  color: #fff;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 300;
+}
+
+h1, h2, h3 h4, h5, h6 {
+  font-weight: 300;
+}
+
+.searchResult h1,
+.searchResult p {
+  margin: 0;
+}
+
+.searchResult {
+  height: 150px;
+  width: 500px;
+  margin: 0 auto;
+}
+
+.resultImage {
+  float: left;
+}
+
+.goingButton {
+  float: right;
+  width: 100px;
+  height: 100px;
+  cursor: pointer;
+}
+
+/* The text input box where user will enter location */
+.searchField {
+  font-size: 1.2em;
+  color: #fff;
+  text-align: center;
+  display: block;
+  background: #672A74;
+  outline: 0;
+  border: 0;
+  border-bottom: 3px solid #DFAFC2;
+  width: 200px;
+  height: 50px;
+  margin: 0 auto;
+  transition: width 1s;
+}
+
+.searchField:focus {
+  width: 80%;
+}
