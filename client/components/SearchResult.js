@@ -5,8 +5,10 @@ const SearchResult = (props) => {
     name, 
     image_url, 
     display_phone: phone,
-    location
+    location,
+    id
    } = props.result;
+
   return (
     <div className='searchResult'>
       <img className='resultImage' src={image_url} width={100} height={100} />
@@ -16,7 +18,7 @@ const SearchResult = (props) => {
       <p>{location.city}, {location.state} {location.zip_code}</p>
       <div
         className='goingButton'
-        onClick={props.handleGoingClick}
+        onClick={props.handleGoingClick.bind(this, id)}
       >
         I'm Going!
       </div>

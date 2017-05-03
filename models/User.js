@@ -7,7 +7,8 @@ const UserSchema = new mongoose.Schema({
     token: String,
     username: String,
     displayName: String,
-  }
+  },
+  placesGoing: [String]
 });
 
 const Nightlife_User = mongoose.model('nightlife_user', UserSchema);

@@ -20,6 +20,9 @@ const express = require('express');
 const path = require('path');
 const axios = require('axios');
 const passport = require('passport');
+const bodyParser = require('body-parser');
+
+const saveLocationToUser = require('./controllers/saveLocationToUser');
 
 const configPassport = require('./config/passport');
 configPassport(passport);
@@ -40,6 +43,7 @@ app.use(session({
   cookie: {}
 }));
 
+app.use(bodyParser.json());
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -50,6 +54,15 @@ app.use(passport.session());
 //     res.json({ message: 'User is not logged in' });
 //   }
 // }
+
+function checkAuth(req, res, next) {
+  console.log('checking auth');
+  if (req.isAuthenticated()) {
+    next();
+  } else {
+    res.json({ isAuthenticated: false });
+  }
+}
 
 const searchYelp = require('./controllers/searchYelp');
 app.get('/searchtest', function(req, res) {
@@ -83,10 +96,11 @@ app.get('/login', (req, res) => {
 });
 
 app.get('/amiauthenticated', (req, res) => {
+
   if (req.isAuthenticated()) {
-    res.json({ message: 'User is logged in' });
+    res.json({ isAuthenticated: true });
   } else {
-    res.json({ message: 'User is not logged in' });
+    res.json({ isAuthenticated: false });
   }
 });
 
@@ -97,6 +111,13 @@ app.get('/whoami', (req, res) => {
         name: req.user.twitter.username
       });
   }
+});
+
+app.post('/going', (req, res) => {
+  const userID = req.user.id;
+  const locationID = req.body.locationID;
+  console.log(userID);
+  saveLocationToUser(userID, locationID);
 });
 
 app.listen(port, () => {

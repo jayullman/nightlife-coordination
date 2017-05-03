@@ -20,6 +20,7 @@
   "homepage": "https://github.com/libeja/nightlife-coordination#readme",
   "dependencies": {
     "axios": "^0.16.1",
+    "body-parser": "^1.17.1",
     "dotenv": "^4.0.0",
     "express": "^4.15.2",
     "express-session": "^1.15.2",
