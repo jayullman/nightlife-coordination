@@ -17,10 +17,12 @@ body {
   color: #fff;
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 300;
+  text-align: center;
 }
 
 h1, h2, h3 h4, h5, h6 {
   font-weight: 300;
+  margin-top: 0;
 }
 
 .searchResult h1,
@@ -29,9 +31,21 @@ h1, h2, h3 h4, h5, h6 {
 }
 
 .searchResult {
-  height: 150px;
-  width: 500px;
-  margin: 0 auto;
+  vertical-align: top;
+  
+  display: flex;
+  justify-content: space-between;
+  /*align-items: center;*/
+  /*height: 100px;*/
+  /*max-width: 700px;*/
+  margin: 0 auto 20px auto;
+  text-align: left;
+}
+
+.searchResult-info {
+  display: inline-block;
+  text-align: left;
+  margin-left: 30px;
 }
 
 .resultImage {
@@ -39,10 +53,13 @@ h1, h2, h3 h4, h5, h6 {
 }
 
 .goingButton {
-  float: right;
-  width: 100px;
-  height: 100px;
+  display: inline-block;  
+  /*float: right;*/
+  width: 80px;
+  height: 90px;
   cursor: pointer;
+  line-height: 100px;
+  overflow: visible;
 }
 
 /* The text input box where user will enter location */
@@ -63,4 +80,10 @@ h1, h2, h3 h4, h5, h6 {
 
 .searchField:focus {
   width: 80%;
+}
+
+.loginoutLink {
+  float: right;
+  margin-right: 20px;
+  cursor: pointer;
 }

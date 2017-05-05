@@ -14,9 +14,10 @@ class App extends Component {
     this.state = {
       results: [],
       message: '',
-      // isLoggedIn: false,
       username: '',
       isLoggedIn: false,
+      // stores all locations user clicked 'I'm going'
+      goingLocations: []
     };
 
     this.fetchResults = this.fetchResults.bind(this);
@@ -30,7 +31,7 @@ class App extends Component {
   fetchResults(location) {
     axios(`/search/${location}`)
       .then(({ data }) => {
-        console.log('yo');
+        console.log(data);
         this.setState({
           results: data
         });
@@ -61,7 +62,8 @@ class App extends Component {
     // save results to session storage before redirecting
     if (this.state.results.length > 0) {
       saveToSessionStorage({
-        results: JSON.stringify(this.state.results)
+        results: JSON.stringify(this.state.results),
+        goingLocations: JSON.stringify(this.state.goingLocations)
       });
     }
     console.log('log in');
@@ -80,19 +82,28 @@ class App extends Component {
   }
 
   handleGoingClick(locationID) {
-    // console.log(e); 
-    console.log(locationID);
+    this.storeLocationInDb(locationID);
+    const updatedGoingLocations = [...this.state.goingLocations];
+    const indexOfLocation = this.state.goingLocations.indexOf(locationID);
 
-    if (this.state.isLoggedIn) {
-      this.storeLocationInDb(locationID);
+    if (indexOfLocation === -1) {
+      updatedGoingLocations.push(locationID);
     } else {
+      updatedGoingLocations.splice(indexOfLocation, 1);
+    }
+    this.setState({
+      goingLocations: updatedGoingLocations
+    });
+
+    // if user is not logged in:
+    if (!this.state.isLoggedIn) {
       this.checkAuth()
         .then((isAuthenticated) => {
           if (!isAuthenticated) {
             this.logIn();
           } else {
             this.setState({ isLoggedIn: true });
-            this.storeLocationInDb(locationID);
+            // this.storeLocationInDb(locationID);
           }
         })
         .catch((err) => { console.log(err); });
@@ -104,7 +115,8 @@ class App extends Component {
     if (sessionStorage.getItem('results')) {
       const session = retrieveFromSessionStorage();
       this.setState({
-        results: session.results
+        results: session.results,
+        goingLocations: session.goingLocations
       });
     }
 
@@ -121,15 +133,23 @@ class App extends Component {
   }
 
   render() {
-    const results = this.state.results.map(result =>
+    const results = this.state.results.map(result => 
       <SearchResult
         key={result.id}
         handleGoingClick={this.handleGoingClick}
         result={result}
+        goingLocations={this.state.goingLocations}
       />
     );
+  
     return (
       <div>
+        <span 
+          onClick={this.state.isLoggedIn ? this.logOut : this.logIn}
+          className='loginoutLink'
+        >
+          {this.state.isLoggedIn ? 'Log out' : 'Log in'}
+        </span>
         <h1>The Nightlife App <i className="fa fa-moon-o" aria-hidden="true"></i></h1>
         <SearchForm
           fetchResults={this.fetchResults}
@@ -142,24 +162,9 @@ class App extends Component {
           <h2>Test Form</h2>
           {this.state.username && <h3>Welcome {this.state.username}</h3>}
           <button
-            onClick={this.fetchResults}
-          >
-            Get Portland Results
-        </button>
-          <button
             onClick={this.checkAuth}
           >
             Am I authenticated?
-        </button>
-          <button
-            onClick={this.logIn}
-          >
-            Log in
-        </button>
-          <button
-            onClick={this.logOut}
-          >
-            Log Out
         </button>
           <div>
             {this.state.message}

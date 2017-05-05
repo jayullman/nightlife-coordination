@@ -65,6 +65,7 @@ function checkAuth(req, res, next) {
 }
 
 const searchYelp = require('./controllers/searchYelp');
+
 app.get('/search/:location', function(req, res) {
   let location = req.params.location;
   searchYelp(location)

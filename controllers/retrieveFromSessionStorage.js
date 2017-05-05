@@ -1,6 +1,6 @@
 // this module retrieves the sessionStorage
 
-module.exports = function () {
+module.exports = function retrieveFromSessionStorage() {
   const sessionObj = {};
   for (let i = 0; i < sessionStorage.length; i++) {
     const key = sessionStorage.key(i);
