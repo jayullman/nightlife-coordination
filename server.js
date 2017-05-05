@@ -22,7 +22,7 @@ const axios = require('axios');
 const passport = require('passport');
 const bodyParser = require('body-parser');
 
-const saveLocationToUser = require('./controllers/saveLocationToUser');
+const saveLocationToUser = require('./helpers/saveLocationToUser');
 
 const configPassport = require('./config/passport');
 configPassport(passport);
@@ -30,7 +30,7 @@ configPassport(passport);
 const port = process.env.PORT || 3000;
 const app = express();
 
-const connectToDb = require('./controllers/connectToDb');
+const connectToDb = require('./helpers/connectToDb');
 connectToDb();
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -64,7 +64,7 @@ function checkAuth(req, res, next) {
   }
 }
 
-const searchYelp = require('./controllers/searchYelp');
+const searchYelp = require('./helpers/searchYelp');
 
 app.get('/search/:location', function(req, res) {
   let location = req.params.location;
@@ -117,7 +117,9 @@ app.post('/going', (req, res) => {
   const userID = req.user.id;
   const locationID = req.body.locationID;
   console.log(userID);
+  // TODO: refactor to updateLocationToUser to handle removal of locations if it already exists
   saveLocationToUser(userID, locationID);
+  // TODO: Add function: updateAttendedLocations to add/remove locations attended-locations in db
 });
 
 app.listen(port, () => {

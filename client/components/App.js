@@ -4,8 +4,8 @@ import axios from 'axios';
 import SearchForm from './SearchForm';
 import SearchResult from './SearchResult';
 
-import retrieveFromSessionStorage from '../../controllers/retrieveFromSessionStorage';
-import saveToSessionStorage from '../../controllers/saveToSessionStorage';
+import retrieveFromSessionStorage from '../../helpers/retrieveFromSessionStorage';
+import saveToSessionStorage from '../../helpers/saveToSessionStorage';
 
 class App extends Component {
   constructor(props) {
@@ -32,6 +32,7 @@ class App extends Component {
     axios(`/search/${location}`)
       .then(({ data }) => {
         console.log(data);
+        // TODO: Find user in db and update this.state.goingLocations
         this.setState({
           results: data
         });
@@ -75,6 +76,7 @@ class App extends Component {
     axios('/logout');
   }
 
+  // TODO: refactor to updateLocationInDb
   storeLocationInDb(locationID) {
     axios.post('/going', {
       locationID
@@ -86,6 +88,7 @@ class App extends Component {
     const updatedGoingLocations = [...this.state.goingLocations];
     const indexOfLocation = this.state.goingLocations.indexOf(locationID);
 
+    // either pushes or removes locationID from goingLocations
     if (indexOfLocation === -1) {
       updatedGoingLocations.push(locationID);
     } else {
@@ -174,6 +177,5 @@ class App extends Component {
     );
   }
 }
-
 
 export default App;
