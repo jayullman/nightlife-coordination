@@ -57,7 +57,10 @@ class App extends Component {
     axios('retrieveUserInfo')
       .then(({ data }) => {
         console.log('user info: ', data);
-        this.setState({ goingLocations_thisUser: data.userInfo });
+        this.setState({ 
+          goingLocations_thisUser: data.placesGoing,
+          username: data.username
+        });
       });
   }
 
@@ -204,11 +207,6 @@ class App extends Component {
           <p>Last Search: {this.state.lastSearch}</p>
           <h2>Test Form</h2>
           {this.state.username && <h3>Welcome {this.state.username}</h3>}
-          <button
-            onClick={this.checkAuth}
-          >
-            Am I authenticated?
-        </button>
           <div>
             {this.state.message}
             {this.state.attendedLocations_allUsers.length > 0 && 'Hello!' }

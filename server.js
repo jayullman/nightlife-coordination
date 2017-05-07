@@ -115,8 +115,10 @@ app.get('/retrieveUserInfo', (req, res) => {
       if (err) throw err;
 
       const placesUserIsGoing= user.placesGoing;
+      const username = user.twitter.displayName;
       res.json({
-        userInfo: placesUserIsGoing
+        placesGoing: placesUserIsGoing,
+        username: username
       });
     });
 
