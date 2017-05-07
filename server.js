@@ -11,10 +11,8 @@ https://api.yelp.com/v3/businesses/search?categories=bars&location=portland, or
 // set up environment variables using .env file
 require('dotenv').config()
 
-
 const location = 'portland, or'
 const API_ENDPOINT =`https://api.yelp.com/v3/businesses/search?categories=bars&location=${ location }`;
-
 
 const express = require('express');
 const path = require('path');
@@ -22,7 +20,8 @@ const axios = require('axios');
 const passport = require('passport');
 const bodyParser = require('body-parser');
 
-const saveLocationToUser = require('./helpers/saveLocationToUser');
+const updateLocationToUser = require('./helpers/updateLocationToUser');
+const updateAttendedLocations = require('./helpers/updateAttendedLocations');
 
 const configPassport = require('./config/passport');
 configPassport(passport);
@@ -46,14 +45,6 @@ app.use(session({
 app.use(bodyParser.json());
 app.use(passport.initialize());
 app.use(passport.session());
-
-// function isUserLoggedIn(req, res, next) {
-//   if (req.isAuthenticated()) {
-//     res.json({ message: 'User is logged in'});
-//   } else {
-//     res.json({ message: 'User is not logged in' });
-//   }
-// }
 
 function checkAuth(req, res, next) {
   console.log('checking auth');
@@ -96,7 +87,6 @@ app.get('/login', (req, res) => {
 });
 
 app.get('/amiauthenticated', (req, res) => {
-
   if (req.isAuthenticated()) {
     res.json({ isAuthenticated: true });
   } else {
@@ -113,13 +103,51 @@ app.get('/whoami', (req, res) => {
   }
 });
 
+const User = require('./models/User');
+const AttendedLocation = require('./models/AttendedLocation');
+
+app.get('/retrieveUserInfo', (req, res) => {
+  if (req.isAuthenticated()) {
+    const userID = req.user;
+    let attendedLocations = [];
+
+    User.findById(userID, (err, user) => {
+      if (err) throw err;
+
+      const placesUserIsGoing= user.placesGoing;
+      res.json({
+        userInfo: placesUserIsGoing
+      });
+    });
+
+  } else {
+    res.sendStatus(401);
+  }
+});
+
+app.get('/whoisgoing', (req, res) => {
+  AttendedLocation.find({}, (err, locations) => {
+    if (err) throw err;
+
+    attendedLocations = locations;
+    console.log(attendedLocations[0]);
+    res.json({
+      locations: attendedLocations
+    });
+  });
+});
+
 app.post('/going', (req, res) => {
   const userID = req.user.id;
   const locationID = req.body.locationID;
-  console.log(userID);
-  // TODO: refactor to updateLocationToUser to handle removal of locations if it already exists
-  saveLocationToUser(userID, locationID);
-  // TODO: Add function: updateAttendedLocations to add/remove locations attended-locations in db
+  const p1 = updateLocationToUser(userID, locationID);
+  const p2 = updateAttendedLocations(userID, locationID);
+
+  // return response when all database operations have completed
+  Promise.all([p1, p2]).then(() => {
+    res.json({ message: 'database operations complete' });
+  });
+  p1.then(() => { console.log('done!') });
 });
 
 app.listen(port, () => {

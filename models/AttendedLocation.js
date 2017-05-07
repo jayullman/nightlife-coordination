@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
 const AttendedLocationSchema = new mongoose.Schema({
-  id: String,
+  locationID: String,
   usersAttending: [String]
 });
 
