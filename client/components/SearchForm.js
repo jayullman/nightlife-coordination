@@ -24,15 +24,21 @@ class SearchForm extends Component {
   render() {
     return (
       <div className='searchForm'>
-      <p className='formTitle'>Enter your location below to see your local spots</p>
-      <form onSubmit={this.handleSubmit}>
-        <input 
-          onChange={this.handleOnSearchChange}
-          value={this.state.searchField}
-          className='searchField' ref={(input) => { this.searchField = input; }} 
-          placeholder='Enter your location'
-        />
-      </form>
+        <p className='formTitle'>Enter your location below to see your local spots</p>
+        <form onSubmit={this.handleSubmit}>
+          <input 
+            onChange={this.handleOnSearchChange}
+            value={this.state.searchField}
+            className='searchField' ref={(input) => { this.searchField = input; }} 
+            placeholder='Enter your location'
+          />
+        </form>
+        <div 
+          className='searchButton'
+          onClick={this.handleSubmit}
+        >
+          Go
+        </div>
       </div>
     );
   }

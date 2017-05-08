@@ -102,7 +102,10 @@ class App extends Component {
   }
 
   logOut() {
-    this.setState({ isLoggedIn: false });
+    this.setState({ 
+      isLoggedIn: false,
+      username: '' 
+    });
     axios('/logout');
   }
 
@@ -112,7 +115,7 @@ class App extends Component {
 
       // after location is updated, retreieve updated db and update state
     })
-      .then((data) => {
+      .then(() => {
         this.retrieveWhoIsGoingFromDB();
       });
   }
@@ -199,7 +202,18 @@ class App extends Component {
         <SearchForm
           fetchResults={this.fetchResults}
         />
-        {this.state.username && <h3>Welcome, {this.state.username}!</h3>}
+        {this.state.username && <h4>Welcome, {this.state.username}!</h4>}
+        {(!this.state.isLoggedIn && this.state.results.length > 0)
+          && <p>
+            <span 
+              className='signInLink' 
+              onClick={this.logIn}
+            >
+              Sign in
+            </span> 
+            {' '}to let your friend's know what you're up to!
+            </p>
+        }
         <div>
           {results}
         </div>
