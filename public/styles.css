@@ -63,8 +63,8 @@ a {
 }
 
 .no-touchevents footer a:hover {
-  color: #00FF7F;
-  border-bottom: 1px solid #00ff7f;    
+  color: #30b9db;
+  border-bottom: 1px solid #30b9db;    
 }
 
 .icons-container a {
@@ -101,8 +101,8 @@ a {
 }
 
 .no-touchevents .loginoutLink:hover {
-  color: #00FF7F;
-  border-bottom: 1px solid #00ff7f;    
+  color: #30b9db;
+  border-bottom: 1px solid #30b9db;    
 }
 
 h1, h2, h3 h4, h5, h6 {
@@ -176,7 +176,7 @@ h1, h2, h3 h4, h5, h6 {
 }
 
 .isGoing-true {
-  border: 3px solid #A4384D;
+  border: 3px solid #30b9db;
 }
 
 .isGoing-false {
@@ -184,7 +184,7 @@ h1, h2, h3 h4, h5, h6 {
 }
 
 .no-touchevents .isGoing-true:hover {
-  background-color: #A4384D;
+  background-color: #30b9db;
   color: #fff;
 }
 .no-touchevents .isGoing-false:hover {
