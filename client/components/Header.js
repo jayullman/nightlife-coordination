@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Header = (props) => (
+const Header = props => (
   <header>
     <span
       onClick={props.isLoggedIn ? props.logOut : props.logIn}

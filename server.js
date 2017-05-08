@@ -47,7 +47,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 function checkAuth(req, res, next) {
-  console.log('checking auth');
   if (req.isAuthenticated()) {
     next();
   } else {
@@ -132,7 +131,6 @@ app.get('/whoisgoing', (req, res) => {
     if (err) throw err;
 
     attendedLocations = locations;
-    console.log(attendedLocations[0]);
     res.json({
       locations: attendedLocations
     });
@@ -149,7 +147,6 @@ app.post('/going', (req, res) => {
   Promise.all([p1, p2]).then(() => {
     res.json({ message: 'database operations complete' });
   });
-  p1.then(() => { console.log('done!') });
 });
 
 app.listen(port, () => {

@@ -46,9 +46,6 @@ class App extends Component {
   fetchResults(location) {
     axios(`/search/${location}`)
       .then(({ data }) => {
-        console.log(data);
-        // TODO: Find user in db and update this.state.goingLocations
-        
         if (this.state.isLoggedIn) {
           this.retrieveUserInfoFromDB();
         }
@@ -60,14 +57,12 @@ class App extends Component {
       })
       .catch((err) => {
         console.log(err);
-        alert('Could not find location');
       });
   }
 
   retrieveUserInfoFromDB() {
     axios('retrieveUserInfo')
       .then(({ data }) => {
-        console.log('user info: ', data);
         this.setState({ 
           goingLocations_thisUser: data.placesGoing,
           username: data.username
@@ -78,8 +73,8 @@ class App extends Component {
   retrieveWhoIsGoingFromDB() {
     axios('/whoisgoing')
       .then(({ data }) => {
-        this.setState({ attendedLocations_allUsers: data.locations })        
-      })
+        this.setState({ attendedLocations_allUsers: data.locations });       
+      });
   }
 
   checkAuth() {
@@ -103,7 +98,6 @@ class App extends Component {
         lastLocationClicked: JSON.stringify(this.state.lastLocationClicked)
       });
     }
-    console.log('log in');
     window.location.href = '/auth/twitter';
   }
 
@@ -119,7 +113,6 @@ class App extends Component {
       // after location is updated, retreieve updated db and update state
     })
       .then((data) => {
-        console.log(data);
         this.retrieveWhoIsGoingFromDB();
       });
   }
@@ -149,7 +142,6 @@ class App extends Component {
           if (!isAuthenticated) {
             this.logIn();
           } else {
-            console.log('hmmm');
             this.setState({ isLoggedIn: true });
             updateInfoIfLoggedIn.call(this);
           }
@@ -175,10 +167,8 @@ class App extends Component {
       this.handleGoingClick(session.lastLocationClicked);
     }
 
-    console.log('mounted');
     this.checkAuth()
       .then((isAuthenticated) => {
-        console.log(isAuthenticated);
         if (isAuthenticated) {
           this.setState({ isLoggedIn: true });
           this.retrieveUserInfoFromDB();
