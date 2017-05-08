@@ -204,7 +204,7 @@ class App extends Component {
         />
         {this.state.username && <h4>Welcome, {this.state.username}!</h4>}
         {(!this.state.isLoggedIn && this.state.results.length > 0)
-          && <p>
+          && <p className='signInMessage'>
             <span 
               className='signInLink' 
               onClick={this.logIn}

@@ -536,6 +536,11 @@ a {
   border-bottom: 1px solid #30b9db;    
 }
 
+.signInMessage {
+  width: 75%;
+  margin: 0 auto 15px auto;
+}
+
 h1, h2, h3 h4, h5, h6 {
   font-weight: 300;
   margin-top: 0;
@@ -620,7 +625,6 @@ h1, h2, h3 h4, h5, h6 {
 .no-touchevents .searchButton:hover {
   background-color: #155160;
 }
-
 
 .isGoing-true {
   background-color: #30b9db;  
