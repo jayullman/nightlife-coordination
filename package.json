@@ -6,7 +6,8 @@
   "scripts": {
     "serve": "webpack-dev-server --host 0.0.0.0",
     "start": "nodemon server.js",
-    "build": "webpack"
+    "build": "webpack",
+    "deploy": "git push heroku master"
   },
   "repository": {
     "type": "git",
