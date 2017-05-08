@@ -24,21 +24,27 @@ const SearchResult = (props) => {
 
   return (
     <div className='searchResult'>
-      <img className='resultImage' src={image_url} width={100} height={100} />
       <div className='searchResult-info'>
-        <h1>{name}</h1>
-        <p>{phone}</p>
-        <p>{location.address1}</p>
-        <p>{location.city}, {location.state} {location.zip_code}</p>
+        <img className='resultImage' src={image_url} width={100} height={100} />
+        <div className='searchResult-info-text'>
+          <h1>{name}</h1>
+          <p>{phone}</p>
+          <p>{location.address1}</p>
+          <p>{location.city}, {location.state} {location.zip_code}</p>
+        </div>
       </div>
-      <div
-        className='goingButton'
-        onClick={props.handleGoingClick.bind(this, id)}
-      >
-       I'm Going
-      </div>
-      <div>{isGoing ? 'YES' : 'NO'}</div>
-      <div>People going: {numberGoing}</div>
+        <div className='going-section'>
+          <div className='numberGoing'>People going: {numberGoing}</div>
+          <div
+            className={isGoing ? 'goingButton isGoing-true' : 'goingButton isGoing-false'}
+            onClick={props.handleGoingClick.bind(this, id)}
+          >
+            I'm Going {isGoing 
+                        ? <i className="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                        : <i className="fa fa-thumbs-o-down" aria-hidden="true"></i>
+                        }
+          </div>
+        </div>
     </div>
   );
 };

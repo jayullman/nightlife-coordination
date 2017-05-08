@@ -13,11 +13,96 @@ http://paletton.com/#uid=54Q0u0kkZm3kZm36OziDFb6DYbg
 */
 
 body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #fff;
+  color: #333;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  text-align: center;
+}
+
+header {
   background: #672A74;
   color: #fff;
-  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-weight: 300;
+  height: 120px;
   text-align: center;
+  position: relative;
+}
+
+.loginoutLink {
+  position: absolute;
+  top: 0px;
+  right: 20px;
+  cursor: pointer;
+}
+
+header h1 {
+  line-height: 120px;
+}
+
+/* footer styles */
+
+footer {
+  height: 150px;
+  background: #672A74;
+  color: #fff;
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+a {
+  color: #fff;
+  text-decoration: none;
+  border-bottom: 1px solid #fff;
+	transition: all .2s ease-in;    
+}
+
+.no-touchevents footer a:hover {
+  color: #00FF7F;
+  border-bottom: 1px solid #00ff7f;    
+}
+
+.icons-container a {
+		margin: 0 10px;
+		position: relative;
+		transition: all .2s ease-in;
+		text-decoration: none;
+		border: 0;
+}
+
+.icons-container a,
+.icons-container a:visited {
+  color: #fff;
+}
+
+.no-touchevents .icons-container a:hover {
+	top: 3px;
+}
+
+/* this style is only applied when there are no search results */
+.pushFooterToBottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+/* end footer styles */
+
+.loginoutLink {
+  margin-top: 10px;
+  border-bottom: 1px solid #fff;
+	transition: all .2s ease-in;
+}
+
+.no-touchevents .loginoutLink:hover {
+  color: #00FF7F;
+  border-bottom: 1px solid #00ff7f;    
 }
 
 h1, h2, h3 h4, h5, h6 {
@@ -31,44 +116,97 @@ h1, h2, h3 h4, h5, h6 {
 }
 
 .searchResult {
+  position: relative;
   vertical-align: top;
-  
-  display: flex;
-  justify-content: space-between;
+  width: 80%;
+  min-width: 280px;
+  max-width: 700px;
+  /*display: flex;
+  justify-content: space-between;*/
   /*align-items: center;*/
   /*height: 100px;*/
   /*max-width: 700px;*/
   margin: 0 auto 20px auto;
   text-align: left;
+  padding: 1em;
+  border: 2px solid #97345C;
+  border-radius: 5px;
+}
+
+.searchResult h1 {
+  font-size: 1.1em;
+  font-weight: 500;
+  margin-bottom: 20px;
 }
 
 .searchResult-info {
   display: inline-block;
   text-align: left;
-  margin-left: 30px;
+  /*width: 60%;*/
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.searchResult-info-text {
+  display: inline-block;
+  vertical-align: top;
+  text-align: left;
 }
 
 .resultImage {
-  float: left;
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.going-section {
+  position: absolute;
+  top: 15px;
+  right: 0;
+  vertical-align: top;
+  margin: 1em;
 }
 
 .goingButton {
-  display: inline-block;  
-  /*float: right;*/
-  width: 80px;
-  height: 90px;
+  /*width: 100px;*/
+  height: 40px;
+  line-height: 40px;
   cursor: pointer;
-  line-height: 100px;
-  overflow: visible;
+  padding: 5px 8px;
+  border-radius: 5px;
+}
+
+.isGoing-true {
+  border: 3px solid #A4384D;
+}
+
+.isGoing-false {
+  border: 3px solid #DFAFC2;
+}
+
+.no-touchevents .isGoing-true:hover {
+  background-color: #A4384D;
+  color: #fff;
+}
+.no-touchevents .isGoing-false:hover {
+  background-color: #DFAFC2;
+  color: #fff;
+}
+
+.numberGoing {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.searchForm {
+  margin: 20px;
 }
 
 /* The text input box where user will enter location */
 .searchField {
   font-size: 1.2em;
-  color: #fff;
+  color: #333;
   text-align: center;
   display: block;
-  background: #672A74;
   outline: 0;
   border: 0;
   border-bottom: 3px solid #DFAFC2;
@@ -82,8 +220,21 @@ h1, h2, h3 h4, h5, h6 {
   width: 80%;
 }
 
-.loginoutLink {
-  float: right;
-  margin-right: 20px;
-  cursor: pointer;
+@media (max-width: 550px) {
+  .going-section {
+    position: static;
+    display: block;
+    text-align: center;
+  }
+
+  .goingButton {
+    margin: 0 auto;
+    width: 50%;
+  }
+}
+
+@media (max-width: 350px) {
+  header h1 {
+    font-size: 1.6em;
+  }
 }

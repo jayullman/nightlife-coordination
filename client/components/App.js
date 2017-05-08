@@ -1,11 +1,22 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
+import Header from './Header';
+import Footer from './Footer';
 import SearchForm from './SearchForm';
 import SearchResult from './SearchResult';
 
 import retrieveFromSessionStorage from '../../helpers/retrieveFromSessionStorage';
 import saveToSessionStorage from '../../helpers/saveToSessionStorage';
+
+// feature detection for touch events to allow
+// for css styling for touch screens
+/* 
+example:
+.no-touchevents .box { color: red; }
+.touchevents .box { color: green; }
+*/
+import '../../helpers/modernizr-touch';
 
 class App extends Component {
   constructor(props) {
@@ -190,28 +201,21 @@ class App extends Component {
   
     return (
       <div>
-        <span 
-          onClick={this.state.isLoggedIn ? this.logOut : this.logIn}
-          className='loginoutLink'
-        >
-          {this.state.isLoggedIn ? 'Log out' : 'Log in'}
-        </span>
-        <h1>The Nightlife App <i className="fa fa-moon-o" aria-hidden="true"></i></h1>
+        <Header
+          isLoggedIn={this.state.isLoggedIn}
+          logOut={this.logOut}
+          logIn={this.logIn}
+        />
         <SearchForm
           fetchResults={this.fetchResults}
         />
-        {/*<div className='searchResults-container'>
+        {this.state.username && <h3>Welcome, {this.state.username}!</h3>}
+        <div>
           {results}
-        </div>*/}
-        <div><p>Logged in: {this.state.isLoggedIn.toString()}</p>
-          <p>Last Search: {this.state.lastSearch}</p>
-          <h2>Test Form</h2>
-          {this.state.username && <h3>Welcome {this.state.username}</h3>}
-          <div>
-            {this.state.message}
-            {this.state.attendedLocations_allUsers.length > 0 && 'Hello!' }
-          </div>
-          {results}</div>
+        </div>
+        <Footer 
+          pushFooterToBottom={this.state.results.length === 0}
+        />
       </div>
     );
   }
