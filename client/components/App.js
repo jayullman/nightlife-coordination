@@ -104,7 +104,8 @@ class App extends Component {
   logOut() {
     this.setState({ 
       isLoggedIn: false,
-      username: '' 
+      username: '',
+      goingLocations_thisUser: [] 
     });
     axios('/logout');
   }
